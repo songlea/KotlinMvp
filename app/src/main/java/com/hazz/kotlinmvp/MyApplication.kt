@@ -11,22 +11,27 @@ import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
-import com.tencent.bugly.crashreport.CrashReport
 import kotlin.properties.Delegates
-
 
 /**
  * Created by xuhao on 2017/11/16.
- *
+ * Application: Base class for those who need to maintain global application state. You can
+ * provide your own implementation by specifying its name in your
+ * AndroidManifest.xml's &lt;application&gt; tag, which will cause that class
+ * to be instantiated for you when the process for your application/package is created.
+ * 就是说application是用来保存全局变量的，并且是在package创建的时候就跟着存在了。
+ * 所以当我们需要创建全局变量的时候，不需要再像j2se那样需要创建public权限的static变量，
+ * 而直接在application中去实现。
+ * 只需要调用Context的getApplicationContext或者Activity的getApplication方法来获得一个application对象，
+ * 再做出相应的处理
  */
-
-class MyApplication : Application(){
+class MyApplication : Application() {
 
     private var refWatcher: RefWatcher? = null
 
     companion object {
 
-        private val TAG = "MyApplication"
+        private const val TAG = "MyApplication"
 
         var context: Context by Delegates.notNull()
             private set

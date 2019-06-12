@@ -50,8 +50,7 @@ class VideoDetailPresenter : BasePresenter<VideoDetailContract.View>(), VideoDet
                         val playUrl = i.url
                         mRootView?.setVideo(playUrl)
                         //Todo 待完善
-                        (mRootView as Activity).showToast("本次消耗${(mRootView as Activity)
-                                .dataFormat(i.urlList[0].size)}流量")
+                        (mRootView as Activity).showToast("本次消耗${dataFormat(i.urlList[0].size)}流量")
                         break
                     }
                 }

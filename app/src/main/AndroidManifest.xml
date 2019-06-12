@@ -1,6 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.hazz.kotlinmvp">
+    <!-- 普通权限:这类的权限不需要动态申请,在清单文件中申请即可,在安装的时候会展示给用户,用户同意安装就获取相应的权限
+            ACCESS_LOCATION_EXTRA_COMMANDS
+            ACCESS_NETWORK_STATE
+            ACCESS_NOTIFICATION_POLICY
+            ACCESS_WIFI_STATE
+            BLUETOOTH
+            BLUETOOTH_ADMIN
+            BROADCAST_STICKY
+            CHANGE_NETWORK_STATE
+            CHANGE_WIFI_MULTICAST_STATE
+            CHANGE_WIFI_STATE
+            DISABLE_KEYGUARD
+            EXPAND_STATUS_BAR
+            GET_PACKAGE_SIZE
+            INSTALL_SHORTCUT
+            INTERNET
+            KILL_BACKGROUND_PROCESSES
+            MODIFY_AUDIO_SETTINGS
+            NFC
+            READ_SYNC_SETTINGS
+            READ_SYNC_STATS
+            RECEIVE_BOOT_COMPLETED
+            REORDER_TASKS
+            REQUEST_INSTALL_PACKAGES
+            SET_ALARM
+            SET_TIME_ZONE
+            SET_WALLPAPER
+            SET_WALLPAPER_HINTS
+            TRANSMIT_IR
+            UNINSTALL_SHORTCUT
+            USE_FINGERPRINT
+            VIBRATE
+            WAKE_LOCK
+            WRITE_SYNC_SETTINGS
+        危险权限
+            group:android.permission-group.CONTACTS
+              permission:android.permission.WRITE_CONTACTS
+              permission:android.permission.GET_ACCOUNTS
+              permission:android.permission.READ_CONTACTS
+
+            group:android.permission-group.PHONE
+              permission:android.permission.READ_CALL_LOG
+              permission:android.permission.READ_PHONE_STATE
+              permission:android.permission.CALL_PHONE
+              permission:android.permission.WRITE_CALL_LOG
+              permission:android.permission.USE_SIP
+              permission:android.permission.PROCESS_OUTGOING_CALLS
+              permission:com.android.voicemail.permission.ADD_VOICEMAIL
+
+            group:android.permission-group.CALENDAR
+              permission:android.permission.READ_CALENDAR
+              permission:android.permission.WRITE_CALENDAR
+
+            group:android.permission-group.CAMERA
+              permission:android.permission.CAMERA
+
+            group:android.permission-group.SENSORS
+              permission:android.permission.BODY_SENSORS
+
+            group:android.permission-group.LOCATION
+              permission:android.permission.ACCESS_FINE_LOCATION
+              permission:android.permission.ACCESS_COARSE_LOCATION
+
+            group:android.permission-group.STORAGE
+              permission:android.permission.READ_EXTERNAL_STORAGE
+              permission:android.permission.WRITE_EXTERNAL_STORAGE
+
+            group:android.permission-group.MICROPHONE
+              permission:android.permission.RECORD_AUDIO
+
+            group:android.permission-group.SMS
+              permission:android.permission.READ_SMS
+              permission:android.permission.RECEIVE_WAP_PUSH
+              permission:android.permission.RECEIVE_MMS
+              permission:android.permission.RECEIVE_SMS
+              permission:android.permission.SEND_SMS
+              permission:android.permission.READ_CELL_BROADCASTS
+    -->
 
     <!-- 获取GSM网络信息状态，如当前的网络连接是否有效 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -22,9 +101,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/AppTheme.NoActionBar">
 
 
@@ -68,11 +147,15 @@
         <!-- 关于 -->
         <activity
             android:name=".ui.activity.AboutActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
         <!-- 观看记录 -->
-        <activity android:name=".ui.activity.WatchHistoryActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".ui.activity.WatchHistoryActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

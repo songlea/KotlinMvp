@@ -7,7 +7,6 @@ import android.os.Build
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.transition.Transition
-import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -27,7 +26,6 @@ import com.hazz.kotlinmvp.utils.WatchHistoryUtils
 import com.hazz.kotlinmvp.view.VideoListener
 import com.orhanobut.logger.Logger
 import com.scwang.smartrefresh.header.MaterialHeader
-import com.shuyu.gsyvideoplayer.listener.LockClickListener
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
@@ -164,7 +162,7 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
             }
         })
         //设置返回按键功能
-        mVideoView.backButton.setOnClickListener({ onBackPressed() })
+        mVideoView.backButton.setOnClickListener { onBackPressed() }
         //设置全屏按键功能
         mVideoView.fullscreenButton.setOnClickListener {
             //直接横屏
@@ -173,20 +171,16 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
             mVideoView.startWindowFullscreen(this, true, true)
         }
         //锁屏事件
-        mVideoView.setLockClickListener(object : LockClickListener {
-            override fun onClick(view: View?, lock: Boolean) {
-                //配合下方的onConfigurationChanged
-                orientationUtils?.isEnable = !lock
-            }
-
-        })
+        mVideoView.setLockClickListener { _, lock ->
+            //配合下方的onConfigurationChanged
+            orientationUtils?.isEnable = !lock
+        }
     }
 
 
     override fun start() {
 
     }
-
 
 
     /**
@@ -205,13 +199,13 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
      */
     private fun saveWatchVideoHistoryInfo(watchItem: HomeBean.Issue.Item) {
         //保存之前要先查询sp中是否有该value的记录，有则删除.这样保证搜索历史记录不会有重复条目
-        val historyMap = WatchHistoryUtils.getAll(Constants.FILE_WATCH_HISTORY_NAME,MyApplication.context) as Map<*, *>
+        val historyMap = WatchHistoryUtils.getAll(Constants.FILE_WATCH_HISTORY_NAME, MyApplication.context) as Map<*, *>
         for ((key, _) in historyMap) {
-            if (watchItem == WatchHistoryUtils.getObject(Constants.FILE_WATCH_HISTORY_NAME,MyApplication.context, key as String)) {
-                WatchHistoryUtils.remove(Constants.FILE_WATCH_HISTORY_NAME,MyApplication.context, key)
+            if (watchItem == WatchHistoryUtils.getObject(Constants.FILE_WATCH_HISTORY_NAME, MyApplication.context, key as String)) {
+                WatchHistoryUtils.remove(Constants.FILE_WATCH_HISTORY_NAME, MyApplication.context, key)
             }
         }
-        WatchHistoryUtils.putObject(Constants.FILE_WATCH_HISTORY_NAME,MyApplication.context, watchItem,"" + mFormat.format(Date()))
+        WatchHistoryUtils.putObject(Constants.FILE_WATCH_HISTORY_NAME, MyApplication.context, watchItem, "" + mFormat.format(Date()))
     }
 
 
@@ -240,7 +234,7 @@ class VideoDetailActivity : BaseActivity(), VideoDetailContract.View {
         itemData = itemInfo
         mAdapter.addData(itemInfo)
         // 请求相关的最新等视频
-        mPresenter.requestRelatedVideo(itemInfo.data?.id?:0)
+        mPresenter.requestRelatedVideo(itemInfo.data?.id ?: 0)
 
     }
 

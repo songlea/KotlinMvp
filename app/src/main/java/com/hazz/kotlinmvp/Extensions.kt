@@ -3,11 +3,7 @@ package com.hazz.kotlinmvp
 import android.content.Context
 import android.support.v4.app.Fragment
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import java.net.URL
 
 /**
  * Created by xuhao on 2017/11/14.
@@ -57,11 +53,11 @@ fun durationFormat(duration: Long?): String {
 /**
  * 数据流量格式化
  */
-fun Context.dataFormat(total: Long): String {
-    var result: String
-    var speedReal: Int = (total / (1024)).toInt()
+fun dataFormat(total: Long): String {
+    val result: String
+    val speedReal: Int = (total / (1024)).toInt()
     result = if (speedReal < 512) {
-        speedReal.toString() + " KB"
+        "$speedReal KB"
     } else {
         val mSpeed = speedReal / 1024.0
         (Math.round(mSpeed * 100) / 100.0).toString() + " MB"

@@ -11,9 +11,7 @@ import java.security.MessageDigest
  * Created by xuhao on 2017/12/6.
  * desc: APP 相关的工具类
  */
-
 class AppUtils private constructor() {
-
 
     init {
         throw Error("Do not need instantiate!")
@@ -21,9 +19,8 @@ class AppUtils private constructor() {
 
     companion object {
 
-        private val DEBUG = true
-        private val TAG = "AppUtils"
-
+        private const val DEBUG = true
+        private const val TAG = "AppUtils"
 
         /**
          * 得到软件版本号
@@ -40,10 +37,8 @@ class AppUtils private constructor() {
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }
-
             return verCode
         }
-
 
         /**
          * 获取应用运行的最大内存
@@ -52,7 +47,6 @@ class AppUtils private constructor() {
          */
         val maxMemory: Long
             get() = Runtime.getRuntime().maxMemory() / 1024
-
 
         /**
          * 得到软件显示版本信息
@@ -69,19 +63,17 @@ class AppUtils private constructor() {
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
             }
-
             return verName
         }
 
-
         @SuppressLint("PackageManagerGetSignatures")
                 /**
-         * 获取应用签名
-         *
-         * @param context 上下文
-         * @param pkgName 包名
-         * @return 返回应用的签名
-         */
+                 * 获取应用签名
+                 *
+                 * @param context 上下文
+                 * @param pkgName 包名
+                 * @return 返回应用的签名
+                 */
         fun getSign(context: Context, pkgName: String): String? {
             return try {
                 @SuppressLint("PackageManagerGetSignatures") val pis = context.packageManager
@@ -92,7 +84,6 @@ class AppUtils private constructor() {
                 e.printStackTrace()
                 null
             }
-
         }
 
         /**
@@ -102,7 +93,9 @@ class AppUtils private constructor() {
          * @return 32位签名字符串
          */
         private fun hexDigest(paramArrayOfByte: ByteArray): String {
-            val hexDigits = charArrayOf(48.toChar(), 49.toChar(), 50.toChar(), 51.toChar(), 52.toChar(), 53.toChar(), 54.toChar(), 55.toChar(), 56.toChar(), 57.toChar(), 97.toChar(), 98.toChar(), 99.toChar(), 100.toChar(), 101.toChar(), 102.toChar())
+            val hexDigits = charArrayOf(48.toChar(), 49.toChar(), 50.toChar(), 51.toChar(),
+                    52.toChar(), 53.toChar(), 54.toChar(), 55.toChar(), 56.toChar(), 57.toChar(),
+                    97.toChar(), 98.toChar(), 99.toChar(), 100.toChar(), 101.toChar(), 102.toChar())
             try {
                 val localMessageDigest = MessageDigest.getInstance("MD5")
                 localMessageDigest.update(paramArrayOfByte)
@@ -123,7 +116,6 @@ class AppUtils private constructor() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
             return ""
         }
 
@@ -143,7 +135,6 @@ class AppUtils private constructor() {
             return (mi.availMem / (1024 * 1024)).toInt()
         }
 
-
         fun getMobileModel(): String {
             var model: String? = Build.MODEL
             model = model?.trim { it <= ' ' } ?: ""
@@ -158,6 +149,5 @@ class AppUtils private constructor() {
         val sdkVersion: Int
             get() = android.os.Build.VERSION.SDK_INT
     }
-
 
 }
